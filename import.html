@@ -83,12 +83,12 @@
                 <div class="p-2">
                     <div class="card text-center">
                         <div class="card-body">
-                            <button class="btn bg-white" data-bs-toggle="modal" data-bs-target="#importModal">
+                            <div data-bs-toggle="modal" data-bs-target="#importModal" type="button">
                                 <h4 class="card-title">
                                     导入项目
                                 </h4>
                                 <i class="bi-plus-lg" style="font-size:  2.4em;"></i>
-                            </button>
+                            </>
                         </div>
                     </div>
                 </div>
@@ -98,7 +98,7 @@
 
 
     <!--modal-->
-    <div class="modal fade" tabindex="-1" id="importModal">
+    <div class="modal fade" tabindex="-1" data-bs-backdrop="static" id="importModal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header border-0">
@@ -161,7 +161,7 @@
                 <!-- 新增的modal-footer -->
                 <div class="modal-footer">
                     <button class="btn btn-light me-md-2" data-bs-dismiss="modal" type="button">取消</button>
-                    <button class="btn btn-primary" type="button">确定</button>
+                    <button class="btn btn-primary" data-bs-dismiss="modal" type="button">确定</button>
                 </div>
         </div>
 
