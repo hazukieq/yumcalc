@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>医学统计学平台</title>
+    <link href="./basic/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./basic/common/universal.css" rel="stylesheet">
+    <link href="./basic/bootstrap/icons/font/bootstrap-icons.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div style="background-color: #f1f3f5;">
+        <!--顶部首页搜索框-->
+        <div class="mt-1 p-1 d-flex flex-row justify-content-around align-content-center">
+            <!--输入框-->
+            <div class="input-group mb-1">
+                <input type="text" class="form-control border-0 rounded-1" placeholder="键入关键词" aria-label="Example text with two button addons">
+                <!--搜索按钮-->
+                <button class="btn ps-1 ms-1 me-1 rounded-1 p-0" type="button" id="nav-menu">
+                    <i class="bi bi-search" style="font-size: 1.2rem;"></i>
+                </button>
+                <!--导航菜单-->
+                <div class="dropdown-center">
+                    <button class="btn rounded-1 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-list" style="font-size: 1.2rem"></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="./description.html">数据描述</a></li>
+                        <li><a class="dropdown-item" href="#">常用统计方法</a></li>
+                        <li><a class="dropdown-item" href="#">其他统计方法</a></li>
+                        <!--li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Separated link</a></li-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!--主页-->
+    <div class="container-fluid mt-1">
+        <div class="row" style="background-color: #f1f3f5;">
+            <div class="col">
+                <div class="p-1"></div>
+            </div>
+        </div>
+
+        <!--首播图片-->
+        <div class="row p-0">
+            <div class="col p-1">
+                <image alt="..." src="basic/img/yoko.png" class="img-fluid rounded-1" style="width: 100%;height: auto;"></image>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./basic/bootstrap/js/bootstrap.bundle.js"></script>
+</html>
