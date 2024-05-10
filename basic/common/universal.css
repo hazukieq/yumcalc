@@ -30,9 +30,9 @@ body{
     }
 
     /*卡片美化*/
-.card,.card-header,.card-body,.card-footer{
+/*.card,.card-header,.card-body,.card-footer{
         background-color: white;
-    }
+    }*/
     
 
 .dropdown-item:active{

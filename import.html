@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>医学统计学平台</title>
+    <link href="./basic/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./basic/common/universal.css" rel="stylesheet">
+    <link href="./basic/bootstrap/icons/font/bootstrap-icons.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div style="background-color: #f1f3f5;">
+        <!--顶部首页-->
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand ps-4" href="#"><strong>医学统计平台</strong></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav pe-3">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">研究项目</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">科研工具集</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">模型库</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">科研服务</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">帮助中心</a>
+                        </li>
+                        <li class="nav-item border-start border-2">
+                            <a class="nav-link"><span class="badge bg-danger p-1 me-1">
+                                帐户
+                                </span><strong>叶月绘梨依</strong>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    
+    <!--主页-->
+    <div class="container-fluid mt-1">
+        <div class="row g-0 pt-4" style="background-color: #f1f3f5;">
+            <div class="col-6">
+                <div class="p-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">
+                                导入项目历史
+                            </h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    心内——心力衰竭临床记录数据集（229例）
+                                </li>
+                                <li class="list-group-item">
+                                    心内——心力衰竭临床记录数据集（229例）
+                                </li>
+                                <li class="list-group-item">
+                                    心内——心力衰竭临床记录数据集（229例）
+                                </li>
+                                <li class="list-group-item">
+                                    心内——心力衰竭临床记录数据集（229例）
+                                </li>
+                                <li class="list-group-item">
+                                    心内——心力衰竭临床记录数据集（229例）
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="p-2">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <button class="btn bg-white" data-bs-toggle="modal" data-bs-target="#importModal">
+                                <h4 class="card-title">
+                                    导入项目
+                                </h4>
+                                <i class="bi-plus-lg" style="font-size:  2.4em;"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--modal-->
+    <div class="modal fade" tabindex="-1" id="importModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title">导入项目</h5>
+                    <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row g-1">
+                            <div class="col-8">
+                                <div class="input-group mb-3">
+                                    <button class="btn btn-outline-secondary disabled fw-bold text-black-50" type="button" id="button-addon1">导入</button>
+                                    <input type="text" class="form-control" placeholder="输入项目地址" aria-label="Example text with two button addons" aria-describedby="button-addon1">
+                                </div>
+                                <!--输入项目背景-->
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">项目背景</span>
+                                    <textarea class="form-control" aria-label="With textarea"></textarea>
+                                </div>
+                                <!--项目概要-->
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">项目概要</span>
+                                    <textarea class="form-control" aria-label="With textarea"></textarea>
+                                </div>
+                                <!--上传文档-->
+                                <div class="input-group mb-3">
+                                    <input class="form-control" type="file" id="formFile">
+                                </div>
+            
+                                <!--导入说明:
+                                <ul>
+                                1. 支持 xls、xlsx、csv 格式的文件
+                                2. 不能合并单元格
+                                3. 第一行是标题且不能缺少
+                                4. 列名不能重复
+                                </ul>
+                                -->
+                                <div class="alert alert-primary" role="alert">
+                                    导入说明:
+                                    <ul>
+                                        <li>支持 xls、xlsx、csv 格式的文件</li>
+                                        <li>不能合并单元格</li>
+                                        <li>第一行是标题且不能缺少</li>
+                                        <li>列名不能重复</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <h5 class="card-title text-center pb-1">
+                                    数据模板图
+                                </h5>
+                                <p class="card-text ps-3">
+                                    平台仅支持行数据的分析，数据格式参考下图所示（第一行为变量名，如红框所示。第二行起行为数据，如蓝框所示）
+                               </p>
+                               <image alt="..." src="basic/img/import_tmp.png" class="img-fluid ps-3" style="width: auto;height: 60%;"></image>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 新增的modal-footer -->
+                <div class="modal-footer">
+                    <button class="btn btn-light me-md-2" data-bs-dismiss="modal" type="button">取消</button>
+                    <button class="btn btn-primary" type="button">确定</button>
+                </div>
+        </div>
+
+    </div>
+</body>
+<script src="./basic/bootstrap/js/bootstrap.bundle.min.js"></script>
+</html>
