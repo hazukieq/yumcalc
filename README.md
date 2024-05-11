@@ -6,6 +6,8 @@
 
 
 
+
+
 #### 项目任务
 
 - [x] 完成导入界面设计
@@ -21,16 +23,9 @@
 
 ##### **basic 文件夹**
 
-basic 基础库
-├── bootstrap # bootstrap5 框架代码
-│   ├── css
-│   ├── icons # 图标库
-│   │   ├── font
-│   │   │   └── fonts
-│   │   └── icon
-│   └── js
-├── common #封装库, utils.js 包含了一些常用操作方法的封装, nativejs.js 是对跨端交			互桥(前端调用宿主系统库), universal.css 是对 bootstrap 框架轻度定制
-└── img 储存前端图片资源
+![Basic 文件夹树状图](./basic/img/basic_description.png)
+
+
 
 
 
@@ -46,7 +41,7 @@ basic 基础库
 
 .....
 
-类似拓当你引用了一段视频时，应在 `basic` 文件夹中新建一个文件夹 `video` ，并将后续依赖三方库储存于此。展时均以此类推。
+类似均以此类推。
 
 
 
