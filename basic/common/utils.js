@@ -4,15 +4,21 @@ String.prototype.replaceAll=function(s1,s2){
 }
 
 
+/**
+ * 为HTMLElement对象添加自动点击功能。
+ * 该函数不会接受参数且没有返回值。
+ */
 HTMLElement.prototype.autoclick=function(){
+    // 创建一个鼠标点击事件
     const el=new MouseEvent('click')
+    // 在当前元素上触发鼠标点击事件
     this.dispatchEvent(el)
 }
 
-/** 
+/*
  * @param {String} id 
  * @returns {Object} obj
- */
+ *
 const $=(id)=>{
     var __id=typeof id=='string'
     if(__id){
@@ -24,9 +30,37 @@ const $=(id)=>{
         }
     }
     else console.log(`id is not string type,please make sure passed id<${id}> is correct!`)
-}
+}*/
 
-HTMLElement.prototype.$=function(id){
+/** 
+ * 根据提供的id获取DOM元素。
+ * 示例：获取存在的DOM元素:
+ *          const myElement = $('elementId');
+ * @param {String} id - 要查找的元素的ID。
+ * @returns {Object|null} 找到的DOM元素或者在发生错误时返回null。
+ */
+const $ = (id) => {
+    // 直接在条件判断中检查类型，同时包含了null和undefined的检查
+    if (typeof id === 'string' && id !== null && id !== undefined) {
+        try {
+            return document.getElementById(id);
+        } catch (err) {
+            // 更详细的错误处理，此处仅打印错误，也可以考虑将错误信息通过其他方式反馈给调用者
+            console.error('passed id=>', id);
+            console.error('err=>', err);
+            // 根据需求，此处可以选择抛出异常或者返回null
+            return null;
+        }
+    } else {
+        // 对于非字符串或者空值的处理，返回null并打印明确的错误信息
+        console.error(`id is not string type or is null/undefined, please make sure passed id<${id}> is correct!`);
+        return null;
+    }
+};
+
+
+
+/*HTMLElement.prototype.$=function(id){
     var __id=typeof id=='string'
     if(__id){
         try{
@@ -37,35 +71,98 @@ HTMLElement.prototype.$=function(id){
         }
     }
     else console.log('id is not string type,please make sure passed id is correct!')
+}*/
+
+/**
+ * 根据 id 查找某元素下的元素
+ * 示例：
+ *      const subEl=rootEl.$('subEl')
+ * @param {String} id - 要查找的元素的ID。
+ * @returns {Object|null} 找到的DOM元素或者在发生错误时返回null。
+ */
+HTMLElement.prototype.$ = function(id) {
+    // 检查 id 是否为字符串类型，同时考虑 null 或 undefined 的情况
+    const __id = typeof id === 'string' && id !== null && id !== undefined;
+    if (__id) {
+        try {
+            // 尝试获取元素
+            const element = document.getElementById(id);
+            // 如果找到元素，返回元素本身
+            if (element) return element;
+            else {
+                // 如果未找到元素，打印日志并返回 undefined
+                console.log(`Passed id=> ${id}`);
+                console.log('Err=> Element not found');
+                return undefined;
+            }
+        } catch (err) {
+            // 在捕获到异常时，打印更详细的错误信息，并返回 undefined
+            console.log(`Passed id=> ${id}`);
+            console.log(`Err=> ${err}`);
+            return undefined;
+        }
+    } else {
+        // 如果输入不是字符串类型，打印明确的错误提示并返回 undefined
+        console.log('id is not string type, please make sure passed id is correct!');
+        return undefined;
+    }
 }
 
 
 
-
+/**
+ * 为HTMLElement对象添加样式。
+ * @param {String|Object} prop - 如果是字符串，则表示要设置的样式属性；如果是一个对象，则表示要设置的一系列样式属性。
+ * @param {String|Null} [value] - 样式属性的值。如果prop是对象，则此参数不必要。
+ * @returns {HTMLElement} - 返回修改样式的HTMLElement对象，支持链式调用。
+ */
 HTMLElement.prototype.css=function(prop,value){
-        if(value===undefined){
-            if(typeof(prop)=='object'){
-                for(let key in prop) this.style[key]=prop[key]
-            }
-            return this
-        }else{
-            this.style[prop]=value
-            return this
+    // 当未指定value时，处理传入的是样式对象的情况
+    if(value===undefined){
+        if(typeof(prop)=='object'){
+            // 遍历对象，设置样式
+            for(let key in prop) this.style[key]=prop[key]
         }
+        return this
+    }else{
+        // 设置单个样式属性
+        this.style[prop]=value
+        return this
     }
+}
 
+/**
+ * 给HTMLElement对象添加或获取属性。
+ * 如果value为undefined，则该方法用于设置多个样式属性（当attr为对象时）或获取指定属性的值。
+ * 如果value不为undefined，则该方法用于设置指定的属性值。
+ * 
+ * @param {String|Object} attr - 要设置的属性名或包含多个属性名及其值的对象。
+ * @param {Any} [value] - 属性的值。如果未提供，则该方法用于获取属性值。
+ * @returns {HTMLElement} - 返回当前HTMLElement对象，支持链式调用。
+ */
 HTMLElement.prototype.attr=function(attr,value){
     if(value===undefined){
+        // 当attr为对象时，设置多个样式属性
         if(typeof(attr)=='object'){
             for(let key in attr) this.style[key]=attr[key]
         }
         return this
     }else{
+        // 设置指定的属性值
         this.setAttribute(attr,value)
         return this
     }
 }
 
+/**
+ * 获取或设置元素的样式属性。
+ * 如果value为undefined，则该方法用于获取指定属性的值。
+ * 如果value不为undefined，则该方法用于设置指定的属性值。
+ * 
+ * @param {String|Object} prop - 要设置的属性名或包含多个属性名及其值的对象。
+ * @param {Any} [value] - 属性的值。如果未提供，则该方法用于获取属性值。
+ * @returns {HTMLElement|String} - 返回当前HTMLElement对象或属性值。
+ * */
 const $css=(prop,args)=>{
     if(prop===undefined||args.length==0) return
     else{
@@ -76,45 +173,77 @@ const $css=(prop,args)=>{
 }
 
 
+
+/**
+ * 为指定元素设置属性。
+ * @param {String|Object} id - 元素的id选择器或元素对象。
+ * @param {Object} args - 包含要设置的属性名和值的对象。
+ * @returns 无返回值。
+ */
 const $attr=(id,args)=>{
+    // 如果id未定义或args为空，则不执行任何操作
     if(id===undefined||args.length==0) return
     else{
+        // 根据id确定元素对象：如果是对象则直接使用，如果是字符串则通过$(id)获取
         var __ele=typeof id==='object'?id:$(id)
+        // 确保args为对象
         const __args=args||{}
 
+        // 遍历args对象，为元素设置每个属性
         for(let key in __args){
             __ele.setAttribute(key,__args[key])
-            console.log(`element.setAttribute("${key}","${__args[key]}")`)
+            console.log(`element.setAttribute("${key}","${__args[key]}")`) // 打印设置的属性信息
         }
     }
 }
 
 
+/**
+ * 获取指定元素的属性值。
+ * @param {String|Object} id - 元素的id选择器或元素对象。
+ * @param {Array} args - 一个包含属性名称的数组。
+ * @returns {Array|String|undefined} - 如果只有一个属性被获取，则返回其值；如果多个属性被获取，则返回一个值的数组；如果没有找到任何元素或没有指定属性，则返回undefined。
+ */
 const $eattr=(id,args)=>{
-    const _array=[]
-    if(id===undefined||args.length==0) return
+    const _array=[] // 用于存储获取到的属性值。
+    if(id===undefined||args.length==0) return // 如果没有指定id或args为空，则直接返回。
     else{
-        var __ele=typeof id==='object'?id:$(id)
-        const __args=args||{}
+        var __ele=typeof id==='object'?id:$(id) // 根据id选择器获取元素对象。
+        const __args=args||{} // 确保args是一个对象。
 
+        // 遍历args，获取每个属性的值并添加到_array中。
         for(let key in __args){
             var __attr=__ele.getAttribute(__args[key])
-            //console.log(`element.getAttribute("${__args[key]}")`)
             _array.push(__attr)
         }
     }
+    // 根据获取到的属性数量，返回单个值或数组。
     return _array.length==1?_array[0]:_array
 }
 
 
+/**
+ * 为HTMLElement添加事件监听器。
+ * @param {String} args 事件名称。
+ * @param {Function} func 当事件被触发时执行的函数。
+ * @returns {HTMLElement} 返回原始的HTMLElement对象，以支持链式调用。
+ */
 HTMLElement.prototype.on=function(args,func){
+    // 如果传入的func是函数，且args是字符串，则添加事件监听器
     if(typeof func=='function'&&typeof args=='string'){
         this.addEventListener(args,(e)=>typeof func=='function'?func(e):console.log('func is not a function!'))
     }
     return this
 }
 
+/**
+ * 一个简化的、用于给元素添加事件监听器的工具函数。
+ * @param {String|HTMLElement} id 元素的id或HTMLElement对象。
+ * @param {String} args 事件名称。
+ * @param {Function} func 当事件被触发时执行的函数。
+ */
 const $on=(id,args,func)=>{
+    // 根据id获取元素对象，如果已经是对象则直接使用
     const __obj=typeof id=='object'?id:$(id)
     __obj.addEventListener(args,(e)=>func(e))
 }
@@ -148,11 +277,19 @@ const $electAll=(clss)=>{
 
 
 
+/**
+ * 为HTMLElement对象添加点击事件功能。
+ * @param {any} args - 传递给点击事件函数的参数，可选。
+ * @param {Function} func - 点击事件的回调函数，必选。
+ * @returns {HTMLElement} - 返回经过点击事件处理的HTMLElement对象。
+ */
 HTMLElement.prototype.click=function(args,func){
+    // 当未定义参数args时，检查func是否为函数并设置点击事件
     if(args===undefined){
         if(typeof func=='function') this.setAttribute('onclick',func(this))
         else console.log('func is not a function !')
     }else{
+        // 当定义了参数args时，检查func是否为函数并设置点击事件，传入args
         if(typeof func=='function') this.setAttribute('onclick',func(args))
         else console.log('func is not a function !')
     }
@@ -161,13 +298,17 @@ HTMLElement.prototype.click=function(args,func){
 }
 
 /**
+ * 为指定元素绑定点击事件。
  * 
- * @param {String} id or object
- * @param {Function} func(id) 
+ * @param {String|Object} id 或者是 DOM 元素对象，用于指定需要绑定点击事件的元素。
+ * @param {Function} func 一个函数，当点击事件被触发时执行该函数。函数接收一个参数，即被点击的元素。
  */
 const $click=(id,func)=>{
+
+    // 根据 id 参数的类型选择性地获取元素。如果是对象，则直接使用，如果是字符串，则通过 $(id) 来获取。
     var __element=typeof id==='object'?id:$(id)
 
+    // 检查传入的 func 是否为函数，如果是，则设置元素的 onclick 属性为执行该函数。
     if(func!==null&&typeof func=='function') 
             __element
                 .setAttribute('onclick',`(${func})(this)`)    
@@ -180,7 +321,8 @@ HTMLElement.prototype.neo=function(ele_name,args,attrs){
     var ele_tag_name=(ele_name!=null&&ele_name!=undefined&&ele_name.length>0&&typeof ele_name=='string')?ele_name:'div'
     var __neoele=document.createElement(ele_tag_name)
     
-    var __args=args||{}
+    var isLog=false
+    const Log=(texts)=>isLog?console.log(texts):void 0?args||{}
     $css(__neoele,__args)
 
     var __attrs=attrs||{}
@@ -213,21 +355,24 @@ const $neo=(root_ele,ele_name,args,attrs)=>{
 
 
 
+/**
+ * 删除指定根元素下的指定子元素。
+ * 
+ * @param {string|object} root_ele - 根元素的选择器或根元素对象。
+ * @param {string|object} id - 子元素的选择器或子元素对象。
+ * @returns 无返回值。
+ */
+const $del=(root_ele,id)=>{
 
-HTMLElement.prototype.del=function(prop){
-    var __obj=typeof prop=='object'?prop:$(prop)
-    this.removeChild(__obj)
-    return this
-}
+    // 将根元素选择器转换为对象，如果已经是对象则不变
+    var __rootele= typeof root_ele=='object'?root_ele:$(root_ele)
+    
+    // 将子元素选择器转换为对象，如果已经是对象则不变
+    var __neoele=typeof id=='object'?id:$(id)
 
-HTMLElement.prototype.dels=function(props){
-    if(typeof props=='object'&&typeof props[0]=='object'){
-        for(let key in props){
-            this.removeChild(props[key])
-        }
-    }
-
-    return this
+    // 如果找到子元素，则从根元素中移除
+    if(__neoele!==null)
+    __rootele.removeChild(__neoele)
 }
 
 const $del=(root_ele,id)=>{
@@ -239,7 +384,19 @@ const $del=(root_ele,id)=>{
 
 
 
+/*const addEven=(modal_id,openfn,closefn)=>{
+    var exampleModal = $(FullScreenEditor_id)
+    exampleModal.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = event.relatedTarget
 
+        // Extract info from data-bs-* attributes
+        var recipient = button.getAttribute('data-bs-whatever')
+
+        var modalEdit = exampleModal.elect('.form-control')
+        modalEdit.value = recipient
+})
+}*/
 
 HTMLElement.prototype.drop=function(callback){
     if(typeof callback=='function'){
@@ -302,57 +459,6 @@ const $switch=(ele,args,onFunc,offFunc)=>{
 
 
 
-
-/**
- * 
- * @param {String} context 
- * @returns {String} url_parameter
- */
-const UrlParamer=(context)=>{
-    const searchParams=new URLSearchParams(context)
-    return {
-        /**
-         * 
-         * @param {String} key 
-         * @param {String} value 
-         * @returns {String} url_parameter
-         */
-        put:(key,value)=>searchParams.append(key,value),
-        
-        /**
-         * 
-         * @param {String} key 
-         * @returns {String} url_parameter
-         */
-        get:(key)=>searchParams.get(key),
-
-        /**
-         * 
-         * @returns {String} whole_url_parameter
-         */
-        getAll:()=>searchParams.toString(),
-        
-        /**
-         * 
-         * @param {String} key 
-         * @returns {String} url_parameter
-         */
-        del:(key)=>searchParams.delete(key)
-    }
-}
-
-/**
- * 
- * @param {String} context 
- * @returns {Function} func
- */
-const getUrlParamer=(context)=>{
-    var instance=null
-    if(!instance) instance=UrlParamer(context)
-    return instance
-}
-
-
 //封装AJax异步请求函数
 var __timer;
 const $ajax=(url,type,timeout)=>{
@@ -379,26 +485,8 @@ const $ajax=(url,type,timeout)=>{
         }
         
         xhr.open('GET',url)
-        xhr.responseType=type?type:'text'//setRequestHeader('Content-Type',type?type:'application/text')
+        xhr.responseType=type?type:'text'
+        //setRequestHeader('Content-Type',type?type:'application/text')
         xhr.send()
     })
 }
-
-
-const isLog=true
-const Log=(texts)=>isLog?console.log(texts):void 0
-
-
-/*const addEven=(modal_id,openfn,closefn)=>{
-    var exampleModal = $(FullScreenEditor_id)
-    exampleModal.addEventListener('show.bs.modal', function (event) {
-        // Button that triggered the modal
-        var button = event.relatedTarget
-
-        // Extract info from data-bs-* attributes
-        var recipient = button.getAttribute('data-bs-whatever')
-
-        var modalEdit = exampleModal.elect('.form-control')
-        modalEdit.value = recipient
-})
-}*/
